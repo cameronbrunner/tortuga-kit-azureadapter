@@ -161,10 +161,10 @@ def updateResolver(domainName):
 
 def bootstrapPuppet():
     cmd = ('/opt/puppetlabs/bin/puppet agent'
-           ' --logdest /tmp/puppet_bootstrap.log'
-           ' --onetime --server %s --waitforcert 120' % installerHostName)
+           ' --logdest /tmp/puppet_bootstrap.log --no-daemonize'
+           ' --onetime --server %s --detailed-exitcodes --waitforcert 120' % installerHostName)
 
-    tryCommand(cmd, good_return_values=(0, 2), time_limit=10 * 60)
+    tryCommand(cmd, good_return_values=(0, 2), time_limit=10 * 60, retries=25)
 
 
 def main():
